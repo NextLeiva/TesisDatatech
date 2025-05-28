@@ -1,0 +1,23 @@
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+# Ignora dependencias de Node.js
+node_modules/
+# Ignora resultados de reportes y logs
+allure-results/
+playwright-report/
+logs/
+*.log
+# Ignora configuraciones locales
+.env
+.idea/
+.vscode/
+# Ignora archivos de sistema operativo
+*.swp
+# Ignora carpetas del sistema
+.DS_Store
+Thumbs.db
