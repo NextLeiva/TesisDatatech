@@ -1,13 +1,13 @@
 
 # Playwright
 node_modules/
-/test-results/
+
 /blob-report/
 /playwright/.cache/
 # Ignora dependencias de Node.js
 node_modules/
 # Ignora resultados de reportes y logs
-allure-results/
+
 
 logs/
 *.log
