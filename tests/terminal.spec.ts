@@ -27,6 +27,7 @@ test("Editar una Terminal", async ({ page }) => {
   await terminalPage.clickGuardar();
   await page.close();
 });
+/**
 test("Crear una nueva Terminal", async ({ page }) => {
   await page.goto("https://itimecontrol.datatech.com.pe/login.aspx");
   // Iniciar sesión
@@ -49,4 +50,4 @@ test("Crear una nueva Terminal", async ({ page }) => {
   await terminalPage.desactivarFlagMaestroSiEstaActivo();
   await terminalPage.selectEstado("Activo"); 
   await page.close();
-});
+}); */

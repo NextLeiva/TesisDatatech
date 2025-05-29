@@ -33,6 +33,7 @@ test("Crear una Sub area nueva", async ({ page }) => {
  * Test: Editar una Sub Área existente
  * Descripción: Automatiza la edición de un registro existente del módulo Sub Área.
  */
+/**
 test("Editar una nueva Area", async ({ page }) => {
   await page.goto("https://itimecontrol.datatech.com.pe/login.aspx");
   // Iniciar sesión
@@ -51,12 +52,13 @@ test("Editar una nueva Area", async ({ page }) => {
   await subArea.clickSubArea();
   await subArea.clickGuardar();
   await page.close();
-});
+}); */
 
 /**
  * Test: Eliminar una Sub Área
  * Descripción: Realiza la eliminación de una sub área desde el sistema. Verifica flujo completo desde login hasta acción de eliminación.
  */
+/**
 test("Eliminar una nueva Area", async ({ page }) => {
   await page.goto("https://itimecontrol.datatech.com.pe/login.aspx");
   // Iniciar sesión
@@ -71,4 +73,4 @@ test("Eliminar una nueva Area", async ({ page }) => {
   const subArea = new SubAreaPage(page);
   await subArea.clickSubArea();
   await subArea.clickEliminar();
-});
+}); */

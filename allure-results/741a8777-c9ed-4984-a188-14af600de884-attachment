@@ -1,0 +1,255 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Editar una nueva Area
+- Location: /Users/joel/Documents/Capacitaciones/TRAINER/TesisPlaywright/tests/subArea.spec.ts:36:5
+
+# Error details
+
+```
+Error: locator.click: Test timeout of 30000ms exceeded.
+Call log:
+  - waiting for locator('a').filter({ hasText: /^Sub Area$/ })
+    - locator resolved to <a id="0.3" onclick="redirectURL('0.3','../Administracion/P_AdmSubArea.aspx')">…</a>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" role="dialog" id="ModalSubArea" aria-hidden="true" class="modal fade in" data-backdrop="static" aria-labelledby="myModalLabel">…</div> intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" role="dialog" id="ModalSubArea" aria-hidden="true" class="modal fade in" data-backdrop="static" aria-labelledby="myModalLabel">…</div> intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    34 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" role="dialog" id="ModalSubArea" aria-hidden="true" class="modal fade in" data-backdrop="static" aria-labelledby="myModalLabel">…</div> intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+    at SubAreaPage.clickSubArea (/Users/joel/Documents/Capacitaciones/TRAINER/TesisPlaywright/pages/SubAreaPage.ts:38:28)
+    at /Users/joel/Documents/Capacitaciones/TRAINER/TesisPlaywright/tests/subArea.spec.ts:51:17
+```
+
+# Page snapshot
+
+```yaml
+- link
+- text: Joel Leyva root
+- button ""
+- navigation:
+  - text: Navegación Principal
+  - list:
+    - listitem:
+      - link "A Administracion "
+      - list:
+        - listitem: Empresa
+        - listitem: Local
+        - listitem: Area
+        - listitem: Sub Area
+        - listitem: Cargo
+        - listitem: Tipo Personal
+        - listitem: Centro Costo
+        - listitem: Personal
+        - listitem: Horario
+        - listitem: Ausencia
+        - listitem: Feriado
+        - listitem: Terminal
+    - listitem:
+      - link "O Operacion "
+    - listitem:
+      - link "R Reportes "
+    - listitem:
+      - link "C Configuracion "
+    - listitem:
+      - link "S Seguridad "
+    - listitem:
+      - link "P Procesos "
+    - listitem:
+      - link "P Planilla "
+- contentinfo: © 2025DataTechnologies S.A.C. All rights reserved 
+- banner:
+  - text: Data Technologies S.A.C
+  - link
+  - list:
+    - listitem:
+      - button ""
+    - listitem:
+      - link ""
+- heading "Listado de SubArea" [level=4]
+- list:
+  - listitem:
+    - link " Inicio"
+  - listitem: / Administracion
+  - listitem: / SubArea
+- button "Cargar "
+- button "Nuevo "
+- button ""
+- link ""
+- link ""
+- link ""
+- text: Mostrar
+- combobox "Mostrar  gestiones":
+  - option "10" [selected]
+  - option "25"
+  - option "50"
+  - option "100"
+- text: " gestiones Search:"
+- searchbox "Search:"
+- grid:
+  - rowgroup:
+    - 'row "Codigo: activate to sort column descending Nombre SubArea: activate to sort column ascending Descripcion: activate to sort column ascending Area: activate to sort column ascending Opciones: activate to sort column ascending"':
+      - 'gridcell "Codigo: activate to sort column descending"': Codigo
+      - 'gridcell "Nombre SubArea: activate to sort column ascending"': Nombre SubArea
+      - 'gridcell "Descripcion: activate to sort column ascending"': Descripcion
+      - 'gridcell "Area: activate to sort column ascending"': Area
+      - 'gridcell "Opciones: activate to sort column ascending"': Opciones
+  - rowgroup:
+    - row "S0001 Sistemas Soporte Tecnico Sub Gerencia  ":
+      - gridcell "S0001"
+      - gridcell "Sistemas"
+      - gridcell "Soporte Tecnico"
+      - gridcell "Sub Gerencia"
+      - gridcell " ":
+        - button ""
+        - button ""
+    - row "S0002 PRUEBASS SUB AREASS Gerencia  ":
+      - gridcell "S0002"
+      - gridcell "PRUEBASS"
+      - gridcell "SUB AREASS"
+      - gridcell "Gerencia"
+      - gridcell " ":
+        - button ""
+        - button ""
+    - row "S0003 MARKETING SALA 3 Sub Gerencia  ":
+      - gridcell "S0003"
+      - gridcell "MARKETING"
+      - gridcell "SALA 3"
+      - gridcell "Sub Gerencia"
+      - gridcell " ":
+        - button ""
+        - button ""
+    - row "S0004 SUB AREA DE MARKETING PRUEBAS Gerencia  ":
+      - gridcell "S0004"
+      - gridcell "SUB AREA DE MARKETING PRUEBAS"
+      - gridcell
+      - gridcell "Gerencia"
+      - gridcell " ":
+        - button ""
+        - button ""
+- status: Mostrando del 1 al 4 de 4 registros
+- text: Anterior 1 Siguiente
+```
+
+# Test source
+
+```ts
+   1 | import { Locator, Page } from "@playwright/test";
+   2 |
+   3 | /**
+   4 |  * Página de gestión de "Sub Área".
+   5 |  * Utiliza el patrón Page Object Model (POM) para automatizar las acciones
+   6 |  * de creación, edición y eliminación de sub áreas.
+   7 |  */
+   8 | export class SubAreaPage {
+   9 |   private readonly subAreaLink: Locator;
+  10 |   private readonly nuevoButton: Locator;
+  11 |   private readonly nombreSubAreaTextbox: Locator;
+  12 |   private readonly descripcionSubAreaTextbox: Locator;
+  13 |   private readonly areaCombo: Locator;
+  14 |   private readonly estadoCombo: Locator;
+  15 |   private readonly guardarButton: Locator;
+  16 |   private readonly editarButton: Locator;
+  17 |   private readonly eliminarButton: Locator;
+  18 |
+  19 |
+  20 |   /**
+  21 |    * Constructor de la clase SubAreaPage.
+  22 |    * @param page Instancia de Playwright que representa la página actual.
+  23 |    */
+  24 |   constructor(page: Page) {
+  25 |     this.subAreaLink = page.locator("a").filter({ hasText: /^Sub Area$/ });
+  26 |     this.nuevoButton = page.getByRole("button", { name: "Nuevo" });
+  27 |     this.nombreSubAreaTextbox = page.locator("#txtNombreSubArea");
+  28 |     this.descripcionSubAreaTextbox = page.locator("#txtDescripcion");
+  29 |     this.areaCombo = page.locator("#cboArea");
+  30 |     this.estadoCombo = page.locator("#cboEstado");
+  31 |     this.guardarButton = page.getByText("Guardar");
+  32 |     this.editarButton = page.locator('(//button[@id="btnEditar"])[4]');
+  33 |     this.eliminarButton = page.locator("#btnEliminar");
+  34 |   }
+  35 |
+  36 |   /** Hace clic en el enlace del módulo "Sub Área". */
+  37 |   async clickSubArea() {
+> 38 |     await this.subAreaLink.click();
+     |                            ^ Error: locator.click: Test timeout of 30000ms exceeded.
+  39 |   }
+  40 |
+  41 |   /** Hace clic en el botón "Nuevo" para iniciar el registro de una sub área. */
+  42 |   async clickNuevo() {
+  43 |     await this.nuevoButton.click();
+  44 |   }
+  45 |
+  46 |   /** Hace clic en el botón "Guardar" para confirmar el registro o la edición. */
+  47 |   async clickGuardar() {
+  48 |     await this.guardarButton.click();
+  49 |   }
+  50 |
+  51 |   /** Hace clic en el botón "Editar" para modificar una sub área existente. */
+  52 |   async clickEditar() {
+  53 |     await this.editarButton.click();
+  54 |   }
+  55 |
+  56 |   /** Hace clic en el botón "Eliminar" para borrar una sub área. */
+  57 |   async clickEliminar() {
+  58 |     await this.eliminarButton.click();
+  59 |   }
+  60 |
+  61 |   /**
+  62 |    * Rellena el campo "Nombre de Sub Área".
+  63 |    * @param nombreSubArea Nombre de la sub área a registrar.
+  64 |    */
+  65 |   async fillNombreSubArea(nombreSubArea: string) {
+  66 |     await this.nombreSubAreaTextbox.click();
+  67 |     await this.nombreSubAreaTextbox.fill(nombreSubArea);
+  68 |   }
+  69 |
+  70 |   /**
+  71 |    * Rellena el campo "Descripción de Sub Área".
+  72 |    * @param descripcionSubArea Texto descriptivo de la sub área.
+  73 |    */
+  74 |   async fillDescripcionSubArea(descripcionSubArea: string) {
+  75 |     await this.descripcionSubAreaTextbox.click();
+  76 |     await this.descripcionSubAreaTextbox.fill(descripcionSubArea);
+  77 |   }
+  78 |
+  79 |   /**
+  80 |    * Selecciona un valor en el combo "Área".
+  81 |    * @param area Etiqueta visible del área a seleccionar.
+  82 |    */
+  83 |   async selectArea(area: string) {
+  84 |     await this.areaCombo.selectOption({ label: area });
+  85 |   }
+  86 |
+  87 |   /**
+  88 |    * Selecciona un valor en el combo "Estado".
+  89 |    * @param estado Estado visible en la lista desplegable (ej. Activo/Inactivo).
+  90 |    */
+  91 |   async selectEstado(estado: string) {
+  92 |     await this.estadoCombo.selectOption({ label: estado });
+  93 |   }
+  94 | }
+  95 |
+```

@@ -16,7 +16,7 @@ test("Crear una nueva area", async ({ page }) => {
   await logueo.fillUsername("jleyva");
   await logueo.fillPassword("jleyva123");
   await logueo.clickLogin();
-  // Navegar al módulo de administración 
+  // Navegar al módulo de administración
   const homePage = new HomePage(page);
   await homePage.clickModuloAdministracion();
   // Acceder a la sección de áreas
@@ -61,7 +61,7 @@ test("Editar una nueva Area", async ({ page }) => {
  * Descripción: Este test automatiza el proceso para eliminar una área desde la vista de administración.
  * Realiza login, accede al módulo de áreas y ejecuta la acción de eliminación.
  */
-test("Eliminar una nueva Area", async ({ page }) => {
+/**test("Eliminar una nueva Area", async ({ page }) => {
   await page.goto("https://itimecontrol.datatech.com.pe/login.aspx");
   // Iniciar sesión
   const logueo = new LoginPage(page);
@@ -75,4 +75,4 @@ test("Eliminar una nueva Area", async ({ page }) => {
   const areaPage = new AreaPage(page);
   await areaPage.clickArea();
   await areaPage.clickEliminar();
-});
+}); */

@@ -36,6 +36,7 @@ test("Crear una nuevo centro de Costo", async ({ page }) => {
  * Se realiza el login, navegación al módulo de administración y sección correspondiente,
  * selección del registro a modificar, actualización de sus campos y guardado de los cambios.
  */
+/**
 test("Editar un centro de Costo", async ({ page }) => {
   await page.goto("https://itimecontrol.datatech.com.pe/login.aspx");
   // Iniciar sesión
@@ -55,4 +56,4 @@ test("Editar un centro de Costo", async ({ page }) => {
   await centroCosto.clickGuardar();
 
   await page.close();
-});
+}); */

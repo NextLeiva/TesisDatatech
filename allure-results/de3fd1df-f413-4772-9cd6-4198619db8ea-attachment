@@ -1,0 +1,231 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Editar un centro de Costo
+- Location: /Users/joel/Documents/Capacitaciones/TRAINER/TesisPlaywright/tests/centroCosto.spec.ts:39:5
+
+# Error details
+
+```
+Error: locator.click: Error: strict mode violation: locator('#btnEditar') resolved to 2 elements:
+    1) <button type="button" id="btnEditar" data-placement="top" data-original-title="Editar" class="btn btn-default btn-sm fa fa-edit"></button> aka getByRole('row', { name: 'CE001 Primero Periodo 2019  ' }).locator('#btnEditar')
+    2) <button type="button" id="btnEditar" data-placement="top" data-original-title="Editar" class="btn btn-default btn-sm fa fa-edit"></button> aka getByRole('row', { name: 'CE002 Segundo test test  ' }).locator('#btnEditar')
+
+Call log:
+  - waiting for locator('#btnEditar')
+
+    at CentroCostoPage.clickEditar (/Users/joel/Documents/Capacitaciones/TRAINER/TesisPlaywright/pages/CentroCostoPage.ts:66:29)
+    at /Users/joel/Documents/Capacitaciones/TRAINER/TesisPlaywright/tests/centroCosto.spec.ts:52:21
+```
+
+# Page snapshot
+
+```yaml
+- link
+- text: Joel Leyva root
+- button ""
+- navigation:
+  - text: Navegación Principal
+  - list:
+    - listitem:
+      - link "A Administracion "
+      - list:
+        - listitem: Empresa
+        - listitem: Local
+        - listitem: Area
+        - listitem: Sub Area
+        - listitem: Cargo
+        - listitem: Tipo Personal
+        - listitem: Centro Costo
+        - listitem: Personal
+        - listitem: Horario
+        - listitem: Ausencia
+        - listitem: Feriado
+        - listitem: Terminal
+    - listitem:
+      - link "O Operacion "
+    - listitem:
+      - link "R Reportes "
+    - listitem:
+      - link "C Configuracion "
+    - listitem:
+      - link "S Seguridad "
+    - listitem:
+      - link "P Procesos "
+    - listitem:
+      - link "P Planilla "
+- contentinfo: © 2025DataTechnologies S.A.C. All rights reserved 
+- banner:
+  - text: Data Technologies S.A.C
+  - link
+  - list:
+    - listitem:
+      - button ""
+    - listitem:
+      - link ""
+- heading "Listado de Centro Costo" [level=4]
+- list:
+  - listitem:
+    - link " Inicio"
+  - listitem: / Administracion
+  - listitem: / Centro Costo
+- button "Nuevo "
+- link ""
+- link ""
+- link ""
+- text: Mostrar
+- combobox "Mostrar  gestiones":
+  - option "10" [selected]
+  - option "25"
+  - option "50"
+  - option "100"
+- text: " gestiones Search:"
+- searchbox "Search:"
+- grid:
+  - rowgroup:
+    - 'row "Codigo: activate to sort column ascending Nombre Centro Costo: activate to sort column ascending Descripcion: activate to sort column ascending Opciones: activate to sort column ascending"':
+      - 'gridcell "Codigo: activate to sort column ascending"': Codigo
+      - 'gridcell "Nombre Centro Costo: activate to sort column ascending"': Nombre Centro Costo
+      - 'gridcell "Descripcion: activate to sort column ascending"': Descripcion
+      - 'gridcell "Opciones: activate to sort column ascending"': Opciones
+  - rowgroup:
+    - row "CE001 Primero Periodo 2019  ":
+      - gridcell "CE001"
+      - gridcell "Primero"
+      - gridcell "Periodo 2019"
+      - gridcell " ":
+        - button ""
+        - button ""
+    - row "CE002 Segundo test test  ":
+      - gridcell "CE002"
+      - gridcell "Segundo test"
+      - gridcell "test"
+      - gridcell " ":
+        - button ""
+        - button ""
+- status: Mostrando del 1 al 2 de 2 registros
+- text: Anterior 1 Siguiente
+- img "Cargando..."
+```
+
+# Test source
+
+```ts
+   1 | import { Locator, Page } from "@playwright/test";
+   2 |
+   3 | /**
+   4 |  * Página de gestión de "Centro de Costo".
+   5 |  * Implementa el patrón Page Object Model (POM) para automatizar pruebas
+   6 |  * del módulo "Centro Costo".
+   7 |  */
+   8 | export class CentroCostoPage {
+   9 |   private readonly page: Page;
+   10 |   private readonly centroCostoLink: Locator;
+   11 |   private readonly nuevoButton: Locator;
+   12 |   private readonly nombreCentroCostoTextbox: Locator;
+   13 |   private readonly descripcionCentroCostoTextbox: Locator;
+   14 |   private readonly estadoCombo: Locator;
+   15 |   private readonly guardarButton: Locator;
+   16 |   private readonly editarButton: Locator;
+   17 |   private readonly eliminarButton: Locator;
+   18 |   private readonly buscadorCentroCostoTextbox: Locator;
+   19 |
+   20 |   /**
+   21 |    * Constructor de la clase.
+   22 |    * @param page Instancia de Playwright que representa la página web.
+   23 |    */
+   24 |   constructor(page: Page) {
+   25 |     this.page = page;
+   26 |     this.centroCostoLink = page
+   27 |       .locator("a")
+   28 |       .filter({ hasText: /^Centro Costo$/ });
+   29 |     this.nuevoButton = page.getByRole("button", { name: "Nuevo" });
+   30 |     this.nombreCentroCostoTextbox = page.locator("#txtNombreCentroCosto");
+   31 |     this.descripcionCentroCostoTextbox = page.locator("#txtDescripcion");
+   32 |     this.estadoCombo = page.locator("#cboEstado");
+   33 |     this.guardarButton = page.getByText("Guardar");
+   34 |     this.editarButton = page.locator("#btnEditar");
+   35 |     this.eliminarButton = page.locator('(//button[@id="btnEditar"])[2]');
+   36 |     this.buscadorCentroCostoTextbox = page.locator(
+   37 |       'input[placeholder="Buscar"]'
+   38 |     );
+   39 |   }
+   40 |
+   41 |   /**
+   42 |    * Hace clic en el enlace del módulo "Centro Costo".
+   43 |    */
+   44 |   async clickCentroCosto() {
+   45 |     await this.centroCostoLink.click();
+   46 |   }
+   47 |
+   48 |   /**
+   49 |    * Hace clic en el botón "Nuevo" para iniciar el registro.
+   50 |    */
+   51 |   async clickNuevo() {
+   52 |     await this.nuevoButton.click();
+   53 |   }
+   54 |
+   55 |   /**
+   56 |    * Hace clic en el botón "Guardar" para registrar un nuevo centro de costo.
+   57 |    */
+   58 |   async clickGuardar() {
+   59 |     await this.guardarButton.click();
+   60 |   }
+   61 |
+   62 |   /**
+   63 |    * Hace clic en el botón "Editar" para modificar un centro de costo existente.
+   64 |    */
+   65 |   async clickEditar() {
+>  66 |     await this.editarButton.click();
+      |                             ^ Error: locator.click: Error: strict mode violation: locator('#btnEditar') resolved to 2 elements:
+   67 |   }
+   68 |
+   69 |   /**
+   70 |    * Hace clic en el botón "Eliminar" para eliminar un centro de costo.
+   71 |    */
+   72 |   async clickEliminar() {
+   73 |     await this.eliminarButton.click();
+   74 |   }
+   75 |
+   76 |   /**
+   77 |    * Rellena el campo "Nombre del Centro de Costo".
+   78 |    * @param nombreCentroCosto Nombre a ingresar.
+   79 |    */
+   80 |   async fillNombreCentroCosto(nombreCentroCosto: string) {
+   81 |     await this.nombreCentroCostoTextbox.click();
+   82 |     await this.nombreCentroCostoTextbox.fill(nombreCentroCosto);
+   83 |   }
+   84 |
+   85 |   /**
+   86 |    * Rellena el campo "Descripción del Centro de Costo".
+   87 |    * @param descripcionCentroCosto Descripción a ingresar.
+   88 |    */
+   89 |   async fillDescripcionCentroCosto(descripcionCentroCosto: string) {
+   90 |     await this.descripcionCentroCostoTextbox.click();
+   91 |     await this.descripcionCentroCostoTextbox.fill(descripcionCentroCosto);
+   92 |   }
+   93 |
+   94 |   /**
+   95 |    * Escribe en el buscador para filtrar registros.
+   96 |    * @param buscadorCentroCosto Texto a buscar.
+   97 |    */
+   98 |   async fillBuscadorCentroCosto(buscadorCentroCosto: string) {
+   99 |     await this.buscadorCentroCostoTextbox.fill(buscadorCentroCosto);
+  100 |     await this.buscadorCentroCostoTextbox.press("Enter");
+  101 |   }
+  102 |
+  103 |   /**
+  104 |    * Selecciona una opción del combo "Estado".
+  105 |    * @param estado Nombre visible del estado a seleccionar.
+  106 |    */
+  107 |   async selectEstado(estado: string) {
+  108 |     await this.estadoCombo.selectOption({ label: estado });
+  109 |   }
+  110 | }
+  111 |
+```

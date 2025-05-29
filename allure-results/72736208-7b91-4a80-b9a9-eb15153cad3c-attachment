@@ -1,0 +1,262 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Editar una nueva ausencia
+- Location: /Users/joel/Documents/Capacitaciones/TRAINER/TesisPlaywright/tests/ausencia.spec.ts:37:5
+
+# Error details
+
+```
+Error: locator.click: Error: strict mode violation: locator('#btnEditar') resolved to 5 elements:
+    1) <button type="button" id="btnEditar" data-placement="top" data-original-title="Editar" class="btn btn-default btn-sm fa fa-edit"></button> aka getByRole('row', { name: 'U0001 PERMISO Aprobados  ' }).locator('#btnEditar')
+    2) <button type="button" id="btnEditar" data-placement="top" data-original-title="Editar" class="btn btn-default btn-sm fa fa-edit"></button> aka getByRole('row', { name: 'U0002 VACACIONES Laboral  ' }).locator('#btnEditar')
+    3) <button type="button" id="btnEditar" data-placement="top" data-original-title="Editar" class="btn btn-default btn-sm fa fa-edit"></button> aka getByRole('row', { name: 'U0003 DESCANSO MEDICO Salud' }).locator('#btnEditar')
+    4) <button type="button" id="btnEditar" data-placement="top" data-original-title="Editar" class="btn btn-default btn-sm fa fa-edit"></button> aka getByRole('row', { name: 'U0004 LICENCIA PATERNIDAD' }).locator('#btnEditar')
+    5) <button type="button" id="btnEditar" data-placement="top" data-original-title="Editar" class="btn btn-default btn-sm fa fa-edit"></button> aka getByRole('row', { name: 'U0005 LICENCIA MATERNIDAD' }).locator('#btnEditar')
+
+Call log:
+  - waiting for locator('#btnEditar')
+
+    at AusenciaPage.clickEditar (/Users/joel/Documents/Capacitaciones/TRAINER/TesisPlaywright/pages/AusenciaPage.ts:60:29)
+    at /Users/joel/Documents/Capacitaciones/TRAINER/TesisPlaywright/tests/ausencia.spec.ts:50:22
+```
+
+# Page snapshot
+
+```yaml
+- link
+- text: Joel Leyva root
+- button ""
+- navigation:
+  - text: Navegación Principal
+  - list:
+    - listitem:
+      - link "A Administracion "
+      - list:
+        - listitem: Empresa
+        - listitem: Local
+        - listitem: Area
+        - listitem: Sub Area
+        - listitem: Cargo
+        - listitem: Tipo Personal
+        - listitem: Centro Costo
+        - listitem: Personal
+        - listitem: Horario
+        - listitem: Ausencia
+        - listitem: Feriado
+        - listitem: Terminal
+    - listitem:
+      - link "O Operacion "
+    - listitem:
+      - link "R Reportes "
+    - listitem:
+      - link "C Configuracion "
+    - listitem:
+      - link "S Seguridad "
+    - listitem:
+      - link "P Procesos "
+    - listitem:
+      - link "P Planilla "
+- contentinfo: © 2025DataTechnologies S.A.C. All rights reserved 
+- banner:
+  - text: Data Technologies S.A.C
+  - link
+  - list:
+    - listitem:
+      - button ""
+    - listitem:
+      - link ""
+- heading "Listado de Ausencias" [level=4]
+- list:
+  - listitem:
+    - link " Inicio"
+  - listitem: / Administracion
+  - listitem: / Ausencias
+- button "Nuevo "
+- link ""
+- link ""
+- link ""
+- text: Mostrar
+- combobox "Mostrar  gestiones":
+  - option "10" [selected]
+  - option "25"
+  - option "50"
+  - option "100"
+- text: " gestiones Search:"
+- searchbox "Search:"
+- grid:
+  - rowgroup:
+    - 'row "Codigo: activate to sort column ascending Nombre Ausencia: activate to sort column ascending Descripcion: activate to sort column ascending Opciones: activate to sort column ascending"':
+      - 'gridcell "Codigo: activate to sort column ascending"': Codigo
+      - 'gridcell "Nombre Ausencia: activate to sort column ascending"': Nombre Ausencia
+      - 'gridcell "Descripcion: activate to sort column ascending"': Descripcion
+      - 'gridcell "Opciones: activate to sort column ascending"': Opciones
+  - rowgroup:
+    - row "U0001 PERMISO Aprobados  ":
+      - gridcell "U0001"
+      - gridcell "PERMISO"
+      - gridcell "Aprobados"
+      - gridcell " ":
+        - button ""
+        - button ""
+    - row "U0002 VACACIONES Laboral  ":
+      - gridcell "U0002"
+      - gridcell "VACACIONES"
+      - gridcell "Laboral"
+      - gridcell " ":
+        - button ""
+        - button ""
+    - row "U0003 DESCANSO MEDICO Salud  ":
+      - gridcell "U0003"
+      - gridcell "DESCANSO MEDICO"
+      - gridcell "Salud"
+      - gridcell " ":
+        - button ""
+        - button ""
+    - row "U0004 LICENCIA PATERNIDAD Salud  ":
+      - gridcell "U0004"
+      - gridcell "LICENCIA PATERNIDAD"
+      - gridcell "Salud"
+      - gridcell " ":
+        - button ""
+        - button ""
+    - row "U0005 LICENCIA MATERNIDAD Salud  ":
+      - gridcell "U0005"
+      - gridcell "LICENCIA MATERNIDAD"
+      - gridcell "Salud"
+      - gridcell " ":
+        - button ""
+        - button ""
+- status: Mostrando del 1 al 5 de 5 registros
+- text: Anterior 1 Siguiente
+- img "Cargando..."
+```
+
+# Test source
+
+```ts
+   1 | import { Locator, Page } from "@playwright/test";
+   2 |
+   3 | /**
+   4 |  * Página de gestión de ausencias.
+   5 |  * Implementa el patrón Page Object Model (POM) para automatizar la interacción
+   6 |  * con el módulo "Ausencia" del sistema.
+   7 |  */
+   8 | export class AusenciaPage {
+   9 |   private readonly page: Page;
+   10 |   private readonly ausenciaLink: Locator;
+   11 |   private readonly nuevoButton: Locator;
+   12 |   private readonly nombreAusenciaTextbox: Locator;
+   13 |   private readonly descripcionAusenciaTextbox: Locator;
+   14 |   private readonly estadoCombo: Locator;
+   15 |   private readonly guardarButton: Locator;
+   16 |   private readonly editarButton: Locator;
+   17 |   private readonly eliminarButton: Locator;
+   18 |
+   19 |   /**
+   20 |    * Constructor de la clase.
+   21 |    * @param page Instancia de la página de Playwright.
+   22 |    */
+   23 |   constructor(page: Page) {
+   24 |     this.page = page;
+   25 |     this.ausenciaLink = page.locator("a").filter({ hasText: /^Ausencia$/ });
+   26 |     this.nuevoButton = page.getByRole("button", { name: "Nuevo" });
+   27 |     this.nombreAusenciaTextbox = page.locator("#txtNombreAusencia");
+   28 |     this.descripcionAusenciaTextbox = page.locator("#txtDescripcion");
+   29 |     this.estadoCombo = page.locator("#cboEstado");
+   30 |     this.guardarButton = page.getByText("Guardar");
+   31 |     this.editarButton = page.locator("#btnEditar");
+   32 |     this.eliminarButton = page.locator("#btnEliminar");
+   33 |   }
+   34 |
+   35 |   /**
+   36 |    * Hace clic en el enlace del módulo "Ausencia".
+   37 |    */
+   38 |   async clickAusencia() {
+   39 |     await this.ausenciaLink.click();
+   40 |   }
+   41 |
+   42 |   /**
+   43 |    * Hace clic en el botón "Nuevo" para registrar una nueva ausencia.
+   44 |    */
+   45 |   async clickNuevo() {
+   46 |     await this.nuevoButton.click();
+   47 |   }
+   48 |
+   49 |   /**
+   50 |    * Hace clic en el botón "Guardar" para confirmar el registro.
+   51 |    */
+   52 |   async clickGuardar() {
+   53 |     await this.guardarButton.click();
+   54 |   }
+   55 |
+   56 |   /**
+   57 |    * Hace clic en el botón "Editar" para modificar un registro existente.
+   58 |    */
+   59 |   async clickEditar() {
+>  60 |     await this.editarButton.click();
+      |                             ^ Error: locator.click: Error: strict mode violation: locator('#btnEditar') resolved to 5 elements:
+   61 |   }
+   62 |
+   63 |   /**
+   64 |    * Hace clic en el botón "Eliminar" para eliminar un registro.
+   65 |    */
+   66 |   async clickEliminar() {
+   67 |     await this.eliminarButton.click();
+   68 |   }
+   69 |
+   70 |   /**
+   71 |    * Rellena el campo "Nombre de Ausencia".
+   72 |    * @param nombreAusencia Texto del nombre de la ausencia.
+   73 |    */
+   74 |   async fillNombreAusencia(nombreAusencia: string) {
+   75 |     await this.nombreAusenciaTextbox.click();
+   76 |     await this.nombreAusenciaTextbox.fill(nombreAusencia);
+   77 |   }
+   78 |
+   79 |   /**
+   80 |    * Rellena el campo "Descripción de Ausencia".
+   81 |    * @param descripcionAusencia Texto de la descripción.
+   82 |    */
+   83 |   async fillDescripcionAusencia(descripcionAusencia: string) {
+   84 |     await this.descripcionAusenciaTextbox.click();
+   85 |     await this.descripcionAusenciaTextbox.fill(descripcionAusencia);
+   86 |   }
+   87 |
+   88 |   /**
+   89 |    * Selecciona una opción del combo "Estado".
+   90 |    * @param estado Nombre visible de la opción a seleccionar.
+   91 |    */
+   92 |   async selectEstado(estado: string) {
+   93 |     await this.estadoCombo.selectOption({ label: estado });
+   94 |   }
+   95 |
+   96 |   /**
+   97 |    * Rellena el campo de búsqueda y presiona Enter.
+   98 |    * @param buscadorAusencia Texto a buscar.
+   99 |    */
+  100 |   async fillBuscadorAusencia(buscadorAusencia: string) {
+  101 |     const buscadorAusenciaTextbox = this.page.locator(
+  102 |       'input[placeholder="Buscar"]'
+  103 |     );
+  104 |     await buscadorAusenciaTextbox.fill(buscadorAusencia);
+  105 |     await buscadorAusenciaTextbox.press("Enter");
+  106 |   }
+  107 |
+  108 |   /**
+  109 |    * Confirma la eliminación haciendo clic en el botón "Eliminar" del modal.
+  110 |    */
+  111 |   async clickEliminarConfirmar() {
+  112 |     const eliminarConfirmarButton = this.page.locator(
+  113 |       'button:has-text("Eliminar")'
+  114 |     );
+  115 |     await eliminarConfirmarButton.click();
+  116 |   }
+  117 | }
+  118 |
+```

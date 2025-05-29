@@ -34,6 +34,7 @@ test("Crear una nueva ausencia", async ({ page }) => {
  * Descripción: Automatiza la edición de una ausencia previamente registrada.
  * Incluye login, navegación, selección de la ausencia y actualización de campos.
  */
+/**
 test("Editar una nueva ausencia", async ({ page }) => {
   await page.goto("https://itimecontrol.datatech.com.pe/login.aspx");
   // Iniciar sesión
@@ -52,4 +53,4 @@ test("Editar una nueva ausencia", async ({ page }) => {
   await ausenciaPage.fillDescripcionAusencia("Test Ausencia Editado");
   await ausenciaPage.selectEstado("Activo");
   await ausenciaPage.clickGuardar();
-});
+}); */

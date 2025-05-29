@@ -1,0 +1,234 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Eliminar una nueva Area
+- Location: /Users/joel/Documents/Capacitaciones/TRAINER/TesisPlaywright/tests/area.spec.ts:64:5
+
+# Error details
+
+```
+Error: locator.click: Error: strict mode violation: locator('#btnEliminar') resolved to 5 elements:
+    1) <button type="button" id="btnEliminar" data-placement="top" data-original-title="Eliminar" class="btn btn-danger btn-sm fa fa-trash-o"></button> aka getByRole('row', { name: 'A0001 Gerencia CHACLACAYO  ' }).locator('#btnEliminar')
+    2) <button type="button" id="btnEliminar" data-placement="top" data-original-title="Eliminar" class="btn btn-danger btn-sm fa fa-trash-o"></button> aka getByRole('row', { name: 'A0001 ADMINISTRACION' }).locator('#btnEliminar')
+    3) <button type="button" id="btnEliminar" data-placement="top" data-original-title="Eliminar" class="btn btn-danger btn-sm fa fa-trash-o"></button> aka getByRole('row', { name: 'A0002 Sub Gerencia Encargado' }).locator('#btnEliminar')
+    4) <button type="button" id="btnEliminar" data-placement="top" data-original-title="Eliminar" class="btn btn-danger btn-sm fa fa-trash-o"></button> aka getByRole('row', { name: 'A0003 Seguridad2 Test Local' }).locator('#btnEliminar')
+    5) <button type="button" id="btnEliminar" data-placement="top" data-original-title="Eliminar" class="btn btn-danger btn-sm fa fa-trash-o"></button> aka getByRole('row', { name: 'A0004 Seguridad Local Lima  ' }).locator('#btnEliminar')
+
+Call log:
+  - waiting for locator('#btnEliminar')
+
+    at AreaPage.clickEliminar (/Users/joel/Documents/Capacitaciones/TRAINER/TesisPlaywright/pages/AreaPage.ts:61:31)
+    at /Users/joel/Documents/Capacitaciones/TRAINER/TesisPlaywright/tests/area.spec.ts:77:18
+```
+
+# Page snapshot
+
+```yaml
+- link
+- text: Joel Leyva root
+- button ""
+- navigation:
+  - text: Navegación Principal
+  - list
+- contentinfo: © 2025DataTechnologies S.A.C. All rights reserved 
+- banner:
+  - text: Data Technologies S.A.C
+  - link
+  - list:
+    - listitem:
+      - button ""
+    - listitem:
+      - link ""
+- heading "Listado Area" [level=4]
+- list:
+  - listitem:
+    - link " Inicio"
+  - listitem: / Administracion
+  - listitem: / Area
+- button "Cargar "
+- button "Nuevo "
+- button ""
+- link ""
+- link ""
+- link ""
+- text: Mostrar
+- combobox "Mostrar  gestiones":
+  - option "10" [selected]
+  - option "25"
+  - option "50"
+  - option "100"
+- text: " gestiones Search:"
+- searchbox "Search:"
+- grid:
+  - rowgroup:
+    - 'row "Codigo: activate to sort column descending Nombre Area: activate to sort column ascending Descripcion: activate to sort column ascending Local: activate to sort column ascending Opciones: activate to sort column ascending"':
+      - 'gridcell "Codigo: activate to sort column descending"': Codigo
+      - 'gridcell "Nombre Area: activate to sort column ascending"': Nombre Area
+      - 'gridcell "Descripcion: activate to sort column ascending"': Descripcion
+      - 'gridcell "Local: activate to sort column ascending"': Local
+      - 'gridcell "Opciones: activate to sort column ascending"': Opciones
+  - rowgroup:
+    - row "A0001 Gerencia CHACLACAYO  ":
+      - gridcell "A0001"
+      - gridcell "Gerencia"
+      - gridcell
+      - gridcell "CHACLACAYO"
+      - gridcell " ":
+        - button ""
+        - button ""
+    - row "A0001 ADMINISTRACION ADMINISTRACION CHACLACAYO  ":
+      - gridcell "A0001"
+      - gridcell "ADMINISTRACION"
+      - gridcell "ADMINISTRACION"
+      - gridcell "CHACLACAYO"
+      - gridcell " ":
+        - button ""
+        - button ""
+    - row "A0002 Sub Gerencia Encargado CHACLACAYO  ":
+      - gridcell "A0002"
+      - gridcell "Sub Gerencia"
+      - gridcell "Encargado"
+      - gridcell "CHACLACAYO"
+      - gridcell " ":
+        - button ""
+        - button ""
+    - row "A0003 Seguridad2 Test Local Lima  ":
+      - gridcell "A0003"
+      - gridcell "Seguridad2"
+      - gridcell "Test"
+      - gridcell "Local Lima"
+      - gridcell " ":
+        - button ""
+        - button ""
+    - row "A0004 Seguridad Local Lima  ":
+      - gridcell "A0004"
+      - gridcell "Seguridad"
+      - gridcell
+      - gridcell "Local Lima"
+      - gridcell " ":
+        - button ""
+        - button ""
+- status: Mostrando del 1 al 5 de 5 registros
+- text: Anterior 1 Siguiente
+- img "Cargando..."
+```
+
+# Test source
+
+```ts
+   1 | import { Page, Locator } from "@playwright/test";
+   2 |
+   3 | /**
+   4 |  * Clase que representa la página de "Área" en la aplicación.
+   5 |  * Contiene métodos para interactuar con los elementos de la interfaz.
+   6 |  */
+   7 | export class AreaPage {
+   8 |   // Elementos de la interfaz de usuario (UI) localizados por selectores
+   9 |   private readonly areaLink: Locator;
+   10 |   private readonly nuevoButton: Locator;
+   11 |   private readonly nombreAreaTextbox: Locator;
+   12 |   private readonly descripcionAreaTextbox: Locator;
+   13 |   private readonly localCombo: Locator;
+   14 |   private readonly estadoCombo: Locator;
+   15 |   private readonly guardarButton: Locator;
+   16 |   private readonly editarButton: Locator;
+   17 |   private readonly eliminarButton: Locator;
+   18 |   private readonly buscadorSubAreaTextbox: Locator;
+   19 |
+   20 |   /**
+   21 |    * Constructor que inicializa todos los localizadores al recibir una instancia de Page.
+   22 |    * @param page - Página de Playwright.
+   23 |    */
+   24 |   constructor(page: Page) {
+   25 |     this.areaLink = page.locator("a").filter({ hasText: /^Area$/ }); // Enlace al módulo "Área"
+   26 |     this.nuevoButton = page.getByRole("button", { name: "Nuevo" }); // Botón para crear nueva área
+   27 |     this.nombreAreaTextbox = page.locator("#txtNombreArea"); // Campo de texto para el nombre del área
+   28 |     this.descripcionAreaTextbox = page.locator("#txtDescripcion"); // Campo de texto para la descripción del área
+   29 |     this.localCombo = page.locator("#cboLocal"); // ComboBox para seleccionar el local
+   30 |     this.estadoCombo = page.locator("#cboEstado"); // ComboBox para seleccionar el estado
+   31 |     this.guardarButton = page.getByText("Guardar"); // Botón para guardar el área
+   32 |     this.editarButton = page.locator('(//button[@id="btnEditar"])[4]'); // Botón para editar un área
+   33 |     this.eliminarButton = page.locator("#btnEliminar"); // Botón para eliminar un área
+   34 |     this.buscadorSubAreaTextbox = page.locator('input[placeholder="Buscar"]'); // Campo de búsqueda de sub-área
+   35 |   }
+   36 |
+   37 |   // MÉTODOS DE ACCIÓN
+   38 |
+   39 |   /** Hace clic en el enlace del módulo Área */
+   40 |   async clickArea() {
+   41 |     await this.areaLink.click();
+   42 |   }
+   43 |
+   44 |   /** Hace clic en el botón "Nuevo" para crear una nueva área */
+   45 |   async clickNuevo() {
+   46 |     await this.nuevoButton.click();
+   47 |   }
+   48 |
+   49 |   /** Hace clic en el botón "Guardar" para guardar los datos ingresados */
+   50 |   async clickGuardar() {
+   51 |     await this.guardarButton.click();
+   52 |   }
+   53 |
+   54 |   /** Hace clic en el botón "Editar" para modificar un registro existente */
+   55 |   async clickEditar() {
+   56 |     await this.editarButton.click();
+   57 |   }
+   58 |
+   59 |   /** Hace clic en el botón "Eliminar" para borrar un registro */
+   60 |   async clickEliminar() {
+>  61 |     await this.eliminarButton.click();
+      |                               ^ Error: locator.click: Error: strict mode violation: locator('#btnEliminar') resolved to 5 elements:
+   62 |   }
+   63 |
+   64 |   /**
+   65 |    * Llena el campo "Nombre del Área" con el valor proporcionado
+   66 |    * @param nombreArea - Nombre del área a ingresar
+   67 |    */
+   68 |   async fillNombreArea(nombreArea: string) {
+   69 |     await this.nombreAreaTextbox.click();
+   70 |     await this.nombreAreaTextbox.fill(nombreArea);
+   71 |   }
+   72 |
+   73 |   /**
+   74 |    * Llena el campo "Descripción del Área" con el valor proporcionado
+   75 |    * @param descripcionArea - Descripción del área
+   76 |    */
+   77 |   async fillDescripcionArea(descripcionArea: string) {
+   78 |     await this.descripcionAreaTextbox.click();
+   79 |     await this.descripcionAreaTextbox.fill(descripcionArea);
+   80 |   }
+   81 |
+   82 |   /**
+   83 |    * Selecciona un valor del combo de locales
+   84 |    * @param local - Nombre del local a seleccionar
+   85 |    */
+   86 |   async selectLocal(local: string) {
+   87 |     await this.localCombo.selectOption({ label: local });
+   88 |   }
+   89 |
+   90 |   /**
+   91 |    * Llena el buscador de sub-áreas y ejecuta la búsqueda
+   92 |    * @param buscadorSubArea - Término a buscar
+   93 |    */
+   94 |   async fillBuscadorSubArea(buscadorSubArea: string) {
+   95 |     await this.buscadorSubAreaTextbox.fill(buscadorSubArea);
+   96 |     await this.buscadorSubAreaTextbox.press("Enter");
+   97 |   }
+   98 |
+   99 |   /**
+  100 |    * Selecciona un estado del combo correspondiente
+  101 |    * @param estado - Estado a seleccionar (ej. "Activo", "Inactivo")
+  102 |    */
+  103 |   async selectEstado(estado: string) {
+  104 |     await this.estadoCombo.selectOption({ label: estado });
+  105 |   }
+  106 | }
+  107 |
+  108 |
+  109 |
+```
